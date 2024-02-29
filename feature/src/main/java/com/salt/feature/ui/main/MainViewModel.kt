@@ -18,18 +18,18 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
     val categories = arrayListOf("technology", "science", "business", "entertainment", "general", "health", "sports")
     var categorySelected = categories.first()
-    var countrySelected = "id"
+    var countrySelected = "us"
     var isLoadMore = false
     var currentPage = 1
     var totalPage: Int = 0
-    private val limitPerPage = 10
+    val limitPerPage = 10
 
     private val _getTopHeadlines = MutableLiveData<BaseResponse<Pair<List<TopHeadline.Article>, Int>>>()
     val getTopHeadlines = _getTopHeadlines.toLiveData()
     fun getTopHeadlines() {
         _getTopHeadlines.set(initBaseResponseLoading())
         getLaunch {
-            _getTopHeadlines.postValue(newsRepository.getTopHeadlines(currentPage, categorySelected, limitPerPage, countrySelected))
+            _getTopHeadlines.postValue(newsRepository.getTopHeadlines(categorySelected, countrySelected, currentPage, limitPerPage))
         }
     }
 }

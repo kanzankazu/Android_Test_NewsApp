@@ -47,11 +47,7 @@ class DetailActivity : BaseActivityBindingView<ActivityDetailBinding>() {
     }
 
     override fun onBackPressed() {
-        if (binding.wvActivityDetail.canGoBack()) {
-            binding.wvActivityDetail.goBack()
-        } else {
-            super.onBackPressed()
-        }
+        super.onBackPressed()
     }
 
     override fun getBundleData() = intent.use {
