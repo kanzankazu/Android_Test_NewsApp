@@ -1,4 +1,4 @@
-package com.salt.core.compose
+package com.salt.core.compose.component.text
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

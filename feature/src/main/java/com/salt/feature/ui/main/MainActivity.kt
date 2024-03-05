@@ -1,26 +1,23 @@
 package com.salt.feature.ui.main
 
-import android.view.LayoutInflater
 import androidx.activity.viewModels
-import com.salt.core.base.BaseActivityBindingView
-import com.salt.core.ext.addFragment
-import com.salt.core.ext.use
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.runtime.Composable
+import com.salt.core.base.BaseActivityBindingCompose
+import com.salt.core.compose.ui.theme.BaseTheme
 import com.salt.feature.R
-import com.salt.feature.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-
+@ExperimentalMaterialApi
 @AndroidEntryPoint
-class MainActivity : BaseActivityBindingView<ActivityMainBinding>() {
+class MainActivity : BaseActivityBindingCompose() {
 
     private val viewModel by viewModels<MainViewModel>()
 
-    override val bindingInflater: (LayoutInflater) -> ActivityMainBinding
-        get() = ActivityMainBinding::inflate
-
-    override fun setContent() = binding.use {
-        ablActivityMain
-        tbActivityMain.title = getString(R.string.label_simple_news_app)
-        fcvActivityMain.addFragment(this@MainActivity.supportFragmentManager, MainFragment(), "MainFragment")
+    @Composable
+    override fun SetContentCompose() {
+        BaseTheme {
+            MainScreen(getString(R.string.label_simple_news_app), viewModel)
+        }
     }
 }

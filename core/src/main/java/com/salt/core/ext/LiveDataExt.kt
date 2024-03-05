@@ -1,5 +1,7 @@
 package com.salt.core.ext
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
@@ -12,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.distinctUntilChanged
 
 fun <T> MutableLiveData<T>.toLiveData(): LiveData<T> = this
+
+fun <T> MutableState<T>.toState(): State<T> = this
 
 fun <T> LiveData<T>.reObserve(owner: LifecycleOwner, observer: Observer<in T>) {
     removeObservers(owner)

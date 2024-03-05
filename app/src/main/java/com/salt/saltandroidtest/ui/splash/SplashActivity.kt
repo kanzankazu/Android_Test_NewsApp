@@ -30,11 +30,8 @@ class SplashActivity : BaseActivityBindingCompose() {
     override fun SetContentCompose() {
         BaseTheme {
             SplashScreen(listOf(getString(R.string.label_hello_tester))) {
-                if (isPermissions(PermissionEnumArray.POST_NOTIFICATIONS)) {
-                    gotoMain()
-                } else {
-                    checkPermissions(PermissionEnumArray.POST_NOTIFICATIONS, notificationPermissionResult)
-                }
+                if (isPermissions(PermissionEnumArray.POST_NOTIFICATIONS)) gotoMain()
+                else checkPermissions(PermissionEnumArray.POST_NOTIFICATIONS, notificationPermissionResult)
             }
         }
     }

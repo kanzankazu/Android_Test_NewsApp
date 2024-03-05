@@ -7,10 +7,10 @@ import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 import java.io.File
 
-inline fun <reified T : AppCompatActivity> Context?.makeIntent() =
+inline fun <reified T : ComponentActivity> Context?.makeIntent() =
     Intent(this, T::class.java)
 
 fun Context.delayFun(delayMillis: Long = 500, r: () -> Unit): Boolean {

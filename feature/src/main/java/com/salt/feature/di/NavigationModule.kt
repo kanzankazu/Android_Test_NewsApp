@@ -1,6 +1,9 @@
+@file:OptIn(ExperimentalMaterialApi::class)
+
 package com.salt.feature.di
 
 import android.content.Context
+import androidx.compose.material.ExperimentalMaterialApi
 import com.salt.core.ext.makeIntent
 import com.salt.feature.navigator.DetailNavigation
 import com.salt.feature.navigator.MainNavigation
