@@ -4,9 +4,11 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
+import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.ChecksSdkIntAtLeast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
 
@@ -36,7 +38,7 @@ fun Context.isPermissions(permissions: Array<PermissionEnumArray>) =
         ActivityCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
     }
 
-fun FragmentActivity.checkPermissions(
+fun ComponentActivity.checkPermissions(
     permissions: PermissionEnumArray,
     activityResultLauncher: ActivityResultLauncher<Array<String>>,
     isWithDialog: Boolean = true,
@@ -44,7 +46,7 @@ fun FragmentActivity.checkPermissions(
     checkPermissions(permissions.permissions, activityResultLauncher, isWithDialog)
 }
 
-fun FragmentActivity.checkPermissions(
+fun ComponentActivity.checkPermissions(
     permissions: Array<PermissionEnum>,
     activityResultLauncher: ActivityResultLauncher<Array<String>>,
     isWithDialog: Boolean = true,
@@ -52,7 +54,7 @@ fun FragmentActivity.checkPermissions(
     checkPermissions(permissions.toArrayString(), activityResultLauncher, isWithDialog)
 }
 
-fun FragmentActivity.checkPermissions(
+fun ComponentActivity.checkPermissions(
     permissions: Array<String>,
     activityResultLauncher: ActivityResultLauncher<Array<String>>,
     isWithDialog: Boolean = true,
@@ -80,7 +82,7 @@ fun FragmentActivity.checkPermissions(
     } else activityResultLauncher.launch(permissions)
 }
 
-fun FragmentActivity.resultMultiplePermissions(defaultHandle: (Map<String, Boolean>) -> Unit = {}) =
+fun ComponentActivity.resultMultiplePermissions(defaultHandle: (Map<String, Boolean>) -> Unit = {}) =
     registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
         val isGranted = permissions.entries.all { it.value }
 
