@@ -10,6 +10,7 @@ import com.salt.core.base.baseresponse.handleBaseResponse
 import com.salt.core.base.baseresponse.initBaseResponseLoading
 import com.salt.core.ext.getLaunch
 import com.salt.core.ext.set
+import com.salt.core.ext.toArrayList
 import com.salt.core.ext.toLiveData
 import com.salt.core.ext.toState
 import com.salt.data.api.news.model.TopHeadline
@@ -48,6 +49,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    var tempData = arrayListOf<TopHeadline.Article>()
     private val _getTopHeadlinesFlow = mutableStateOf(BaseState<TopHeadline.Article>())
     val getTopHeadlinesFlow = _getTopHeadlinesFlow.toState()
     fun getTopHeadlinesFlow() {
@@ -56,7 +58,15 @@ class MainViewModel @Inject constructor(
                 onLoading = { _getTopHeadlinesFlow.value = BaseState(it, emptyList(), "") },
                 onEmpty = { _getTopHeadlinesFlow.value = BaseState(false, emptyList(), "") },
                 onError = { _getTopHeadlinesFlow.value = BaseState(false, emptyList(), it) },
-                onSuccess = { _getTopHeadlinesFlow.value = BaseState(false, it.first, "") }
+                onSuccess = {
+                    totalPage = it.second
+                    if (!isLoadMore) {
+                        tempData = it.first.toArrayList()
+                    } else {
+                        tempData.addAll(it.first)
+                    }
+                    _getTopHeadlinesFlow.value = BaseState(false, tempData, "")
+                }
             )
         }.launchIn(viewModelScope)
     }
